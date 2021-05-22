@@ -1,8 +1,10 @@
-import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import {DateTime} from 'luxon'
+import {BaseModel, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
+import {BelongsTo} from "@ioc:Adonis/Lucid/Relations";
+import User from "App/Models/User";
 
 export default class Todo extends BaseModel {
-  @column({ isPrimary: true })
+  @column({isPrimary: true})
   public id: number
 
   @column()
@@ -14,14 +16,17 @@ export default class Todo extends BaseModel {
   @column()
   public created_by: number
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({autoCreate: true})
   public createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({autoCreate: true, autoUpdate: true})
   public updatedAt: DateTime
 
-  @column.dateTime({ serializeAs:null })
+  @column.dateTime({serializeAs: null})
   public deletedAt: DateTime
 
-  // Todo Add Relationship
+  @belongsTo(() => User, {
+    foreignKey: 'created_by'
+  })
+  public user: BelongsTo<typeof User>
 }
