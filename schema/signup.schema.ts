@@ -8,6 +8,7 @@ export const signupSchema = schema.create({
   phone_number: schema.number.optional(),
   email: schema.string({}, [
     rules.email(),
+    rules.unique({table: 'users', column: 'email'})
   ]),
   password: schema.string({}, [
     rules.minLength(8),
