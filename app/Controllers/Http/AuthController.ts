@@ -1,15 +1,16 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import {signupSchema} from "../../../schema/signup.schema";
+import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import User from "App/Models/User";
 import {loginSchema} from "../../../schema/login.schema";
 import UserTransformer from "App/Transformer/UserTransformer";
+import {signupSchema} from "../../../schema/signup.schema";
+import UserNotFoundException from "App/Exceptions/UserNotFoundException";
 
 export default class AuthController {
   public async signup({request, response}: HttpContextContract) {
     try {
-      // const inputData = await request.validate({
-      //   schema: signupSchema
-      // })
+      const inputData = await request.validate({
+        schema: signupSchema
+      })
 
       // One way to create user
 
@@ -23,10 +24,9 @@ export default class AuthController {
       // await user.save();
 
       // Other way using inbuilt function
-      const user = await User.create(request.all())
-
+      const user = await User.create(inputData)
       return response.json({
-        user : await (new UserTransformer()).transform(user),
+        user: await (new UserTransformer()).transform(user),
       })
     } catch (e) {
       response.badRequest(e.message)
@@ -34,17 +34,21 @@ export default class AuthController {
   }
 
   public async login({request, auth, response}: HttpContextContract) {
+    const user = await User.query().preload('todos').where('email',request.body().email).firstOrFail();
+    if(!user) {
+      throw new UserNotFoundException();
+    }
     try {
-      // const validatedData = await request.validate({
-      //   schema: loginSchema
-      // })
-      const attempt = await auth.attempt(request.body().email, request.body().password)
+      const validatedData = await request.validate({
+        schema: loginSchema
+      })
+      const token = await auth.attempt(validatedData.email, validatedData.password)
       return response.json({
-        user : attempt,
-    })
-
+        token: token,
+        user: await (new UserTransformer().transform(user))
+      })
     } catch (e) {
-      response.badRequest(e.message)
+      response.badRequest(e)
     }
   }
 

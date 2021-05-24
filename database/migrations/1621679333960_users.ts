@@ -10,7 +10,7 @@ export default class Users extends BaseSchema {
       table.string('last_name').nullable()
       table.string('email').notNullable().unique()
       table.string('password').notNullable()
-      table.integer('phone_number').nullable()
+      table.bigInteger('phone_number').nullable()
       table.enum('gender', ['male', 'female', 'transgender']).notNullable()
       table.dateTime('deletedAt').defaultTo(null)
       table.timestamps(true)

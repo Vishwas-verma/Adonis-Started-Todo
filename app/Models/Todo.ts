@@ -1,6 +1,5 @@
 import {DateTime} from 'luxon'
-import {BaseModel, belongsTo, column} from '@ioc:Adonis/Lucid/Orm'
-import {BelongsTo} from "@ioc:Adonis/Lucid/Relations";
+import {BaseModel, belongsTo, BelongsTo, column} from '@ioc:Adonis/Lucid/Orm'
 import User from "App/Models/User";
 
 export default class Todo extends BaseModel {
@@ -28,5 +27,5 @@ export default class Todo extends BaseModel {
   @belongsTo(() => User, {
     foreignKey: 'created_by'
   })
-  public user: BelongsTo<typeof User>
+  public creator: BelongsTo<typeof User>
 }

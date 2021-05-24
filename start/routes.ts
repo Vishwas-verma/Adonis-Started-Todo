@@ -9,3 +9,6 @@ Route.get("/test", async ({ response }: HttpContextContract) => {
 Route.post('/signup', 'AuthController.signup')
 Route.post('/login', 'AuthController.login')
 Route.post('/logout', 'AuthController.logout')
+
+Route.get("/index-users", 'UsersController.indexUsers')
+Route.get("/index-todos", 'TodosController.indexTodos')

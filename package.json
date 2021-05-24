@@ -25,6 +25,7 @@
     "@adonisjs/validator": "^5.1.0",
     "adonis-bumblebee": "^2.2.0",
     "adonis-bumblebee-ts": "^1.0.0",
+    "async": "^3.2.0",
     "luxon": "^1.27.0",
     "mysql": "^2.18.1",
     "phc-argon2": "^1.1.1",
