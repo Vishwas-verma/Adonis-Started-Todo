@@ -14,3 +14,4 @@ Route.get("/index-users", 'UsersController.indexUsers')
 
 Route.get("/index-todos", 'TodosController.indexTodos')
 Route.post("/create", 'TodosController.createTodo').middleware('auth')
+Route.put("/update/:id", 'TodosController.updateTodo').middleware('auth')

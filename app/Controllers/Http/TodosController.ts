@@ -12,14 +12,33 @@ export default class TodosController {
     return response.json(await (new TodoTransformer().transformList(todos)))
   }
 
-  public async createTodo({request, response,auth}: HttpContextContract) {
-      const validateData = await request.validate({
-        schema: schema.create({
-          title: schema.string(),
-        })
+  public async createTodo({request, response, auth}: HttpContextContract) {
+    const validateData = await request.validate({
+      schema: schema.create({
+        title: schema.string(),
       })
-      const todo=await Todo.create({...validateData,created_by:auth.user?.id});
-      await todo.load('creator')
-      return response.json(await (new TodoTransformer().transform(todo)))
+    })
+    const todo = await Todo.create({...validateData, created_by: auth.user?.id});
+    await todo.load('creator')
+    return response.json(await (new TodoTransformer().transform(todo)))
+  }
+
+  public async updateTodo({request, response,params}: HttpContextContract) {
+
+    const validateData = await request.validate({
+      schema: schema.create({
+        title: schema.string.optional(),
+        is_created:schema.boolean.optional()
+      })
+    })
+   await Todo
+      .query()
+      .where('id', request.params().id)
+      .update(validateData)
+
+    const todo = await Todo.findBy('id', +params.id);
+    await todo?.preload('creator');
+
+     return response.json(await (new TodoTransformer().transform(<Todo>todo)))
   }
 }
