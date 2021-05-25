@@ -5,10 +5,10 @@ export default class Todos extends BaseSchema {
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').unique().primary()
+      table.bigIncrements('id').unique().primary()
       table.string('title').notNullable()
-      table.boolean('is_created').defaultTo(false)
-      table.integer('created_by').notNullable()
+      table.boolean('is_created').defaultTo(true)
+      table.bigInteger('created_by').unsigned().references('users.id').onDelete('CASCADE').notNullable()
       table.dateTime("deleted_at").defaultTo(null)
       table.timestamps(true)
     })

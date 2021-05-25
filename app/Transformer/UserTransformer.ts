@@ -21,7 +21,7 @@ export default class UserTransformer extends TransformerAbstract<User> {
   public async includeTodos(user: User): Promise<Dictionary<any>> {
     let todos: Todo[] = user.todos;
     if (isUndefined(todos)) {
-      todos = await user.$getRelated("todos") as Todo[];
+      todos = await user.related('todos').query();
     }
     return new TodoTransformer().transformList(todos)
   }
