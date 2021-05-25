@@ -7,7 +7,6 @@ import UserNotFoundException from "App/Exceptions/UserNotFoundException";
 
 export default class AuthController {
   public async signup({request, response}: HttpContextContract) {
-    try {
       const inputData = await request.validate({
         schema: signupSchema
       })
@@ -28,9 +27,6 @@ export default class AuthController {
       return response.json({
         user: await (new UserTransformer()).transform(user),
       })
-    } catch (e) {
-      response.badRequest(e.message)
-    }
   }
 
   public async login({request, auth, response}: HttpContextContract) {
