@@ -3,18 +3,21 @@ import TodoTransformer from "App/Transformer/TodoTransformer";
 import {isUndefined} from "util";
 import Todo from "App/Models/Todo";
 import {Dictionary} from "async";
-import {TransformerAbstract} from "App/Transformer/TransformerAbstract";
+import TransformerAbstract from "App/Transformer/TransformerAbstract";
 
 export default class UserTransformer extends TransformerAbstract<User> {
-  defaultIncludes = ['todos'];
+  constructor() {
+    super();
+  }
+  protected defaultIncludes = ['todos'];
+ //  protected availableIncludes = ['todos'];
 
-  protected _map(model: User): Dictionary<any> {
+  protected async transform(model: any): Dictionary<any> {
     return {
       id: model.id,
       first_name: model.first_name,
       last_name: model.last_name,
-      email: model.email,
-      gender: model.email
+      ...this.getTransformedTimeStamps(model),
     }
   }
 
@@ -23,6 +26,6 @@ export default class UserTransformer extends TransformerAbstract<User> {
     if (isUndefined(todos)) {
       todos = await user.related('todos').query();
     }
-    return new TodoTransformer().transformList(todos)
+    return await new TodoTransformer().transformCollection(todos)
   }
 }

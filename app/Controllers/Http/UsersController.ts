@@ -10,6 +10,6 @@ export default class UsersController {
     if (filters.gender) userQuery.where('gender', filters.gender)
 
     const users = await userQuery
-    return response.json(await (new UserTransformer().transformList(users)))
+    return response.json(await (new UserTransformer().transformCollection(users,{include:'todos'})))
   }
 }

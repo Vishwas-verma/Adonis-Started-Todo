@@ -2,13 +2,13 @@ import Todo from "App/Models/Todo";
 import UserTransformer from "App/Transformer/UserTransformer";
 import {isUndefined} from "util";
 import User from "App/Models/User";
-import {TransformerAbstract} from "App/Transformer/TransformerAbstract";
+import TransformerAbstract from "App/Transformer/TransformerAbstract";
 import {Dictionary} from "async";
 
 export default class TodoTransformer extends TransformerAbstract<Todo> {
-  defaultIncludes = ['createdBy'];
 
-  protected _map(model: Todo): Dictionary<any> {
+
+  protected async transform(model: Todo): Dictionary<any> {
     return {
       id: model.id,
       title: model.title,
@@ -31,6 +31,6 @@ export default class TodoTransformer extends TransformerAbstract<Todo> {
     if (!creator) {
       return null;
     }
-    return new UserTransformer().transform(creator)
+    return new UserTransformer().transformItem(creator)
   }
 }
