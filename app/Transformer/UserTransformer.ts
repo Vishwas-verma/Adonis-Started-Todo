@@ -23,6 +23,6 @@ export default class UserTransformer extends TransformerAbstract<User> {
     if (isUndefined(todos)) {
       todos = await user.related('todos').query();
     }
-    return new TodoTransformer().transformList(todos)
+    return new TodoTransformer().transformList(todos,['createdBy'])
   }
 }

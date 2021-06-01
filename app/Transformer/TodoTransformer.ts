@@ -6,7 +6,6 @@ import {TransformerAbstract} from "App/Transformer/TransformerAbstract";
 import {Dictionary} from "async";
 
 export default class TodoTransformer extends TransformerAbstract<Todo> {
-  defaultIncludes = ['createdBy'];
 
   protected _map(model: Todo): Dictionary<any> {
     return {
