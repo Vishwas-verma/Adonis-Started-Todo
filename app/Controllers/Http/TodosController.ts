@@ -2,6 +2,7 @@ import {HttpContextContract} from "@ioc:Adonis/Core/HttpContext";
 import Todo from "App/Models/Todo";
 import TodoTransformer from "App/Transformer/TodoTransformer";
 import {schema} from "@ioc:Adonis/Core/Validator";
+import Mail from "@ioc:Adonis/Addons/Mail";
 
 export default class TodosController {
   public async index({request, response}: HttpContextContract) {
@@ -19,7 +20,30 @@ export default class TodosController {
       })
     })
     const todo = await Todo.create({...validateData, created_by: auth.user?.id});
-    await todo.load('creator')
+    await todo.preload('creator')
+    try {
+      const res=await Mail.use('smtp').send((message) => {
+        message.to("xyz@gmail.com").from("Peter@adonis.com").subject('TODO created!') // Probably we will fetch email from user
+          .htmlView("todo_created", {todo})
+      }, {
+        transaction: true,
+        openTracking: false,
+      })
+      console.log(res);
+      /*{
+        accepted: [ 'xyz@gmail.com' ],
+        rejected: [],
+        envelopeTime: 2123,
+        messageTime: 819,
+        messageSize: 383,
+        response: '250 Great success',
+        envelope: { from: 'Peter@adonis.com', to: [ 'xyz@gmail.com' ] },
+        messageId: '<aa78edb6-2346-feca-ebd9-@adonis.com>'
+      }*/
+    }
+    catch (e){
+     throw e;
+    }
     return response.json(await (new TodoTransformer().transform(todo)))
   }
 
