@@ -16,13 +16,7 @@
   },
   "preloads": [
     "./start/routes",
-    "./start/kernel",
-    {
-      "file": "./start/customrules",
-      "environment": [
-        "web"
-      ]
-    }
+    "./start/kernel"
   ],
   "providers": [
     "./providers/AppProvider",

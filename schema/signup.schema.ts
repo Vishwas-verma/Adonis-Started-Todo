@@ -11,6 +11,6 @@ export const signupSchema = schema.create({
     rules.unique({table: 'users', column: 'email'})
   ]),
   password: schema.string({}, [
-    rules.password(),
+    rules.minLength(8),
   ])
 })
