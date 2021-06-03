@@ -44,7 +44,30 @@ export default class ProjectsController {
   public async edit({}: HttpContextContract) {
   }
 
-  public async update({}: HttpContextContract) {
+  public async update({request, params}: HttpContextContract) {
+    const updateData = await request.validate({
+      schema: schema.create({
+        name: schema.string.optional(),
+        description: schema.string.optional(),
+        members: schema.array().members(schema.object().members({
+          id: schema.number(),
+          role: schema.enum(Object.values(ProjectRoleEnum))
+        }))
+      })
+    });
+    const project = await Project.findOrFail(params.id);
+
+    const updatedProject = project.merge({name: updateData.name, description: updateData.description});
+    await project.related('members').detach();
+    for (const u of updateData.members) {
+      await project.related('members').attach({
+        [u.id]: {
+          role: u.role
+        }
+      })
+    }
+    await updatedProject.preload('members', q => q.preload('todos'));
+    return await updatedProject.save();
   }
 
   public async destroy({}: HttpContextContract) {
