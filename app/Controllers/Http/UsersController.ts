@@ -9,7 +9,9 @@ export default class UsersController {
     const userQuery = User.query().preload('todos')
     if (filters.gender) userQuery.where('gender', filters.gender)
 
-    const users = await userQuery
+    const users = await userQuery;
+    console.log(users);
+
     return response.json(await (new UserTransformer().transformList(users)))
   }
 }

@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon'
-import {BaseModel, beforeSave, column, hasMany, HasMany, manyToMany, ManyToMany} from '@ioc:Adonis/Lucid/Orm'
+import {BaseModel, beforeSave, column, computed, hasMany, HasMany, manyToMany, ManyToMany} from '@ioc:Adonis/Lucid/Orm'
 import {GenderEnum} from "App/Enums/gender.enum";
 import Hash from "@ioc:Adonis/Core/Hash";
 import Todo from "App/Models/Todo";
@@ -28,7 +28,8 @@ export default class User extends BaseModel {
   @column()
   public gender: GenderEnum
 
-  public async getFullName(){
+  @computed()
+  public get fullName(){
     return `${this.first_name} ${this.last_name}`
   }
 

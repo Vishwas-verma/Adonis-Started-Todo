@@ -12,6 +12,7 @@ export default class UserTransformer extends TransformerAbstract<User> {
     return {
       id: model.id,
       first_name: model.first_name,
+      full_name: model.fullName,
       last_name: model.last_name,
       email: model.email,
       gender: model.email
