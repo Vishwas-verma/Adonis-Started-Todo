@@ -2,11 +2,12 @@ import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
 import {schema} from "@ioc:Adonis/Core/Validator";
 import Project from "App/Models/Project";
 import {ProjectRoleEnum} from "Contracts/Enums/ProjectRoleEnum";
+import ProjectTransformer from "App/Transformer/ProjectTransformer";
 
 export default class ProjectsController {
   public async index({response}: HttpContextContract) {
-    const projects = await Project.query().where('description','LIKE',`%nd`).preload('members', query => query.wherePivot('role','project_leader').orWherePivot('role','intern'));
-    return response.json({data: projects})
+    const projects = await Project.query().where('description','LIKE',`%nd`).preload('members', query => query.wherePivot('role','project_leader').orWherePivot('role','intern')).preload('creator');
+    return response.json(await (new ProjectTransformer().transformList(projects,["createdBy","members"])))
   }
 
   public async create({}: HttpContextContract) {
