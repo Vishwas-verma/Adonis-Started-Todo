@@ -26,3 +26,5 @@ Route.get("/index-users", 'UsersController.indexUsers')
 // Route.put("/update/:id", 'TodosController.updateTodo').middleware('auth')
 
 Route.resource('todos', 'TodosController').only(['index','store','update','destroy']).middleware({'*':['auth']})
+
+Route.resource('projects','ProjectsController').apiOnly();

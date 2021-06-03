@@ -20,7 +20,7 @@ export default class TodosController {
       })
     })
     const todo = await Todo.create({...validateData, created_by: auth.user?.id});
-    await todo.preload('creator')
+    await todo.preload('creator');
     try {
       const res=await Mail.use('smtp').send((message) => {
         message.to("xyz@gmail.com").from("Peter@adonis.com").subject('TODO created!') // Probably we will fetch email from user

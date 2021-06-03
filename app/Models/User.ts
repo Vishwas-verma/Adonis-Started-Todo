@@ -1,8 +1,9 @@
 import {DateTime} from 'luxon'
-import {BaseModel, beforeSave, column, hasMany, HasMany} from '@ioc:Adonis/Lucid/Orm'
+import {BaseModel, beforeSave, column, hasMany, HasMany, manyToMany, ManyToMany} from '@ioc:Adonis/Lucid/Orm'
 import {GenderEnum} from "App/Enums/gender.enum";
 import Hash from "@ioc:Adonis/Core/Hash";
 import Todo from "App/Models/Todo";
+import Project from "App/Models/Project";
 
 export default class User extends BaseModel {
   @column({isPrimary: true})
@@ -51,4 +52,33 @@ export default class User extends BaseModel {
       user.password = await Hash.make(user.password)
     }
   }
+
+  @hasMany(() => Project, {
+    localKey: 'createdBy'
+  })
+  public works: HasMany<typeof Project>
+
+  @manyToMany(() => Project, {
+    pivotForeignKey: 'user_id',
+    pivotRelatedForeignKey: 'project_id',
+    pivotColumns: ['role'], // Extra columns in pivot table are placed here
+    pivotTable: 'project_users'
+  })
+  public projects: ManyToMany<typeof Project>
+
+  public serializeExtras() {
+    return {
+      role: this.$extras.pivot_role
+    }
+  }
+  //
+  // public serializeExtras() {
+  //   return {
+  //     pivot: {
+  //       role: this.$extras.pivot_role
+  //     }
+  //   }
+  // }
+
+  // public serializeExtras = true
 }

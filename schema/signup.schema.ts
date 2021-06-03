@@ -10,7 +10,5 @@ export const signupSchema = schema.create({
     rules.email(),
     rules.unique({table: 'users', column: 'email'})
   ]),
-  password: schema.string({}, [
-    rules.password(),
-  ])
+  password: schema.string({trim:true})
 })
