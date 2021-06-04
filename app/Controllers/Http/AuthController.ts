@@ -4,6 +4,8 @@ import {loginSchema} from "../../../schema/login.schema";
 import UserTransformer from "App/Transformer/UserTransformer";
 import {signupSchema} from "../../../schema/signup.schema";
 import UserNotFoundException from "App/Exceptions/UserNotFoundException";
+import Bull from "@ioc:Rocketseat/Bull";
+import UserRegisterEmail from "App/Jobs/UserRegisterEmail";
 
 export default class AuthController {
   public async signup({request, response}: HttpContextContract) {
@@ -22,8 +24,9 @@ export default class AuthController {
       // user.password = inputData.password;
       // await user.save();
 
-      // Other way using inbuilt function
       const user = await User.create(inputData)
+      await Bull.add(new UserRegisterEmail().key, user)
+
       return response.json({
         user: await (new UserTransformer()).transform(user),
       })

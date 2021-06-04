@@ -5,7 +5,8 @@
     "@adonisjs/core/build/commands",
     "@adonisjs/repl/build/commands",
     "@adonisjs/lucid/build/commands",
-    "@adonisjs/mail/build/commands"
+    "@adonisjs/mail/build/commands",
+    "@rocketseat/adonis-bull/build/commands"
   ],
   "exceptionHandlerNamespace": "App/Exceptions/Handler",
   "aliases": {
@@ -22,7 +23,8 @@
       "environment": [
         "web"
       ]
-    }
+    },
+    "./start/bull"
   ],
   "providers": [
     "./providers/AppProvider",
@@ -31,7 +33,8 @@
     "@adonisjs/auth",
     "adonis-bumblebee-ts",
     "@adonisjs/mail",
-    "@adonisjs/view"
+    "@adonisjs/view",
+    "@rocketseat/adonis-bull"
   ],
   "aceProviders": [
     "@adonisjs/repl"

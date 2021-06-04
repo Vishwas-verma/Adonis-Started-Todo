@@ -32,7 +32,8 @@
       "@adonisjs/auth",
       "adonis-bumblebee-ts",
       "@adonisjs/mail",
-      "@adonisjs/view"
+      "@adonisjs/view",
+      "@rocketseat/adonis-bull"
     ]
   }
 }
