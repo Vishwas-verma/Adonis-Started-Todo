@@ -33,7 +33,8 @@
       "adonis-bumblebee-ts",
       "@adonisjs/mail",
       "@adonisjs/view",
-      "@rocketseat/adonis-bull"
+      "@rocketseat/adonis-bull",
+      "adonis5-sentry"
     ]
   }
 }
