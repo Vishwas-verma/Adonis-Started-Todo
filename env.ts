@@ -12,28 +12,28 @@
 |
 */
 
-import Env from '@ioc:Adonis/Core/Env'
+import Env from "@ioc:Adonis/Core/Env";
 
 export default Env.rules({
-	HOST: Env.schema.string({ format: 'host' }),
-	PORT: Env.schema.number(),
-	APP_KEY: Env.schema.string(),
-	APP_NAME: Env.schema.string(),
-	NODE_ENV: Env.schema.enum(['development', 'production', 'testing'] as const),
-  MYSQL_HOST: Env.schema.string({ format: 'host' }),
-  MYSQL_PORT: Env.schema.number(),
-  MYSQL_USER: Env.schema.string(),
-  MYSQL_PASSWORD: Env.schema.string.optional(),
-  MYSQL_DB_NAME: Env.schema.string(),
+    HOST: Env.schema.string({ format: "host" }),
+    PORT: Env.schema.number(),
+    APP_KEY: Env.schema.string(),
+    APP_NAME: Env.schema.string(),
+    NODE_ENV: Env.schema.enum(["development", "production", "testing"] as const),
+    MYSQL_HOST: Env.schema.string({ format: "host" }),
+    MYSQL_PORT: Env.schema.number(),
+    MYSQL_USER: Env.schema.string(),
+    MYSQL_PASSWORD: Env.schema.string.optional(),
+    MYSQL_DB_NAME: Env.schema.string(),
 
-  SMTP_HOST: Env.schema.string({format: 'host'}),
-  SMTP_PORT: Env.schema.number(),
-  SMTP_USERNAME: Env.schema.string(),
-  SMTP_PASSWORD: Env.schema.string(),
+    SMTP_HOST: Env.schema.string({ format: "host" }),
+    SMTP_PORT: Env.schema.number(),
+    SMTP_USERNAME: Env.schema.string(),
+    SMTP_PASSWORD: Env.schema.string(),
 
-  BULL_REDIS_HOST: Env.schema.string({format: 'host'}),
-  BULL_REDIS_PORT: Env.schema.number(),
-  BULL_REDIS_PASSWORD: Env.schema.string.optional(),
+    BULL_REDIS_HOST: Env.schema.string({ format: "host" }),
+    BULL_REDIS_PORT: Env.schema.number(),
+    BULL_REDIS_PASSWORD: Env.schema.string.optional(),
 
-  SENTRY_DSN: Env.schema.string()
-})
+    SENTRY_DSN: Env.schema.string()
+});

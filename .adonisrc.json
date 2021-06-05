@@ -1,49 +1,45 @@
 {
-  "typescript": true,
-  "commands": [
-    "./commands",
-    "@adonisjs/core/build/commands",
-    "@adonisjs/repl/build/commands",
-    "@adonisjs/lucid/build/commands",
-    "@adonisjs/mail/build/commands",
-    "@rocketseat/adonis-bull/build/commands"
-  ],
-  "exceptionHandlerNamespace": "App/Exceptions/Handler",
-  "aliases": {
-    "App": "app",
-    "Config": "config",
-    "Database": "database",
-    "Contracts": "contracts"
-  },
-  "preloads": [
-    "./start/routes",
-    "./start/kernel",
-    {
-      "file": "./start/customrules",
-      "environment": [
-        "web"
-      ]
+    "typescript": true,
+    "commands": [
+        "./commands",
+        "@adonisjs/core/build/commands",
+        "@adonisjs/repl/build/commands",
+        "@adonisjs/lucid/build/commands",
+        "@adonisjs/mail/build/commands",
+        "@rocketseat/adonis-bull/build/commands"
+    ],
+    "exceptionHandlerNamespace": "App/Exceptions/Handler",
+    "aliases": {
+        "App": "app",
+        "Config": "config",
+        "Database": "database",
+        "Contracts": "contracts"
     },
-    "./start/bull"
-  ],
-  "providers": [
-    "./providers/AppProvider",
-    "@adonisjs/core",
-    "@adonisjs/lucid",
-    "@adonisjs/auth",
-    "adonis-bumblebee-ts",
-    "@adonisjs/mail",
-    "@adonisjs/view",
-    "@rocketseat/adonis-bull",
-    "adonis5-sentry"
-  ],
-  "aceProviders": [
-    "@adonisjs/repl"
-  ],
-  "metaFiles": [
-    {
-      "pattern": "resources/views/**/*.edge",
-      "reloadServer": false
-    }
-  ]
+    "preloads": [
+        "./start/routes",
+        "./start/kernel",
+        {
+            "file": "./start/customrules",
+            "environment": ["web"]
+        },
+        "./start/bull"
+    ],
+    "providers": [
+        "./providers/AppProvider",
+        "@adonisjs/core",
+        "@adonisjs/lucid",
+        "@adonisjs/auth",
+        "adonis-bumblebee-ts",
+        "@adonisjs/mail",
+        "@adonisjs/view",
+        "@rocketseat/adonis-bull",
+        "adonis5-sentry"
+    ],
+    "aceProviders": ["@adonisjs/repl"],
+    "metaFiles": [
+        {
+            "pattern": "resources/views/**/*.edge",
+            "reloadServer": false
+        }
+    ]
 }

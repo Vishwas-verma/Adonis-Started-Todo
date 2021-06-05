@@ -3,15 +3,27 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "node ace build --production",
+    "build-ts": "tsc",
+    "build-ts-prod": "node --max-old-space-size=700 ./node_modules/typescript/bin/tsc --skipLibCheck --diagnostics",
     "start": "node server.js",
     "dev": "node ace serve --watch",
-    "lint": "npm run prettify && npm run lint:eslint:quiet src",
+    "lint": "npm run prettify",
     "lint:eslint:quiet": "eslint --ext .ts,.js --no-error-on-unmatched-pattern --quiet",
     "lint:eslint": "eslint --ext .ts,.js --no-error-on-unmatched-pattern",
     "lint:eslint:fix": "eslint --ext .ts,.js --no-error-on-unmatched-pattern --quiet --fix",
-    "prettify": "prettier --write src",
-    "prepare": "husky install"
+    "prettify": "prettier --write .",
+    "prepare": "husky install",
+    "pretest": "npm run lint",
+    "test": "node japaFile.js",
+    "clean": "del build",
+    "compile": "npm run lint && npm run clean && tsc",
+    "build": "npm run compile",
+    "commit": "git-cz",
+    "release": "np",
+    "version": "npm run build",
+    "format": "prettier --write .",
+    "prepublishOnly": "npm run build",
+    "sync-labels": "github-label-sync --labels ./node_modules/@adonisjs/mrm-preset/gh-labels.json adonisjs/hash"
 
   },
   "husky": {
@@ -22,7 +34,6 @@
   "lint-staged": {
     "*.{ts,js}": [
       "npm run prettify",
-      "npm run lint:eslint:fix",
       "git add --force"
     ],
     "*.{md,json}": [

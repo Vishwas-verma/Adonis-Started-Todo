@@ -1,4 +1,4 @@
-import { Exception } from '@adonisjs/core/build/standalone'
+import { Exception } from "@adonisjs/core/build/standalone";
 
 /*
 |--------------------------------------------------------------------------
@@ -13,11 +13,11 @@ import { Exception } from '@adonisjs/core/build/standalone'
 |
 */
 
-const message = 'User Not Found Exception'
-const status = 501
+const message = "User Not Found Exception";
+const status = 501;
 
 export default class UserNotFoundException extends Exception {
-  constructor () {
-    super(message, status)
-  }
+    constructor() {
+        super(message, status);
+    }
 }

@@ -13,20 +13,20 @@
 |
 */
 
-import Logger from '@ioc:Adonis/Core/Logger'
-import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
-import Sentry from '@ioc:Adonis/Addons/Sentry'
+import Logger from "@ioc:Adonis/Core/Logger";
+import HttpExceptionHandler from "@ioc:Adonis/Core/HttpExceptionHandler";
+import Sentry from "@ioc:Adonis/Addons/Sentry";
 
 export default class ExceptionHandler extends HttpExceptionHandler {
-  constructor () {
-    super(Logger)
-  }
-  public async handle (error, ctx) {
-    Sentry.captureException(error)
-
-    if (error.code === 'E_VALIDATION_FAILURE') {
-      return ctx.response.status(422).send(error.messages)
+    constructor() {
+        super(Logger);
     }
-    return super.handle(error, ctx)
-  }
+    public async handle(error, ctx) {
+        Sentry.captureException(error);
+
+        if (error.code === "E_VALIDATION_FAILURE") {
+            return ctx.response.status(422).send(error.messages);
+        }
+        return super.handle(error, ctx);
+    }
 }

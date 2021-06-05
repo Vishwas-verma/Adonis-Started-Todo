@@ -1,5 +1,3 @@
-const jobs = [
-  "App/Jobs/UserRegisterEmail"
-]
+const jobs = ["App/Jobs/UserRegisterEmail"];
 
-export default jobs
+export default jobs;
