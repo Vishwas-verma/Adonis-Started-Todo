@@ -5,7 +5,12 @@
   "scripts": {
     "build": "node ace build --production",
     "start": "node server.js",
-    "dev": "node ace serve --watch"
+    "dev": "node ace serve --watch",
+    "lint": "npm run prettify && npm run lint:eslint:quiet src",
+    "lint:eslint:quiet": "eslint --ext .ts,.js --no-error-on-unmatched-pattern --quiet",
+    "lint:eslint": "eslint --ext .ts,.js --no-error-on-unmatched-pattern",
+    "lint:eslint:fix": "eslint --ext .ts,.js --no-error-on-unmatched-pattern --quiet --fix",
+    "prettify": "prettier --write src"
   },
   "husky": {
     "hooks": {
