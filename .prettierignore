@@ -1,0 +1,8 @@
+.cache
+dist
+logs
+tmp
+package.json
+package-lock.json
+.env
+
