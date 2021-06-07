@@ -29,7 +29,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
         return super.handle(error, ctx);
     }
 
-    public async report(error: any, job) {
+    public async report(error: any) {
         if (!this.shouldReport(error)) {
             return;
         }
